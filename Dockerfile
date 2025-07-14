@@ -3,11 +3,17 @@ FROM eclipse-temurin:17-jdk AS build
 
 WORKDIR /app
 COPY . .
+
+# ✅ Make mvnw executable before using it
+RUN chmod +x ./mvnw
+
+# ✅ Then run the build
 RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Runtime
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
