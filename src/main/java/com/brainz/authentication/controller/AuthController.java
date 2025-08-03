@@ -1,5 +1,7 @@
 package com.brainz.authentication.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +35,8 @@ public class AuthController {
      * @return a ResponseEntity containing the authentication response
      */
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+    @Operation(summary = "Login", description = "Authenticate user and return access & refresh tokens")
+    public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
         AuthResponseDto response = authService.login(loginRequestDto);
         return ResponseEntity.ok(response);
     }
@@ -45,7 +48,8 @@ public class AuthController {
      * @return a ResponseEntity containing the new authentication tokens
      */
     @PostMapping("/refresh")
-    public ResponseEntity<AuthResponseDto> refreshToken(@RequestBody RefreshTokenRequestDto refreshTokenRequestDto) {
+    @Operation(summary = "Refresh Token", description = "Refresh access token using a valid refresh token")
+    public ResponseEntity<AuthResponseDto> refreshToken(@Valid @RequestBody RefreshTokenRequestDto refreshTokenRequestDto) {
         AuthResponseDto response = authService.refreshToken(refreshTokenRequestDto);
         return ResponseEntity.ok(response);
     }

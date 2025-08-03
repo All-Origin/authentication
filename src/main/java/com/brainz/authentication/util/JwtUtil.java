@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -30,9 +31,10 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(Long userId, String username) {
+    public String generateToken(Long userId, String username, List<String> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
+        claims.put("roles", roles);
         return createToken(claims, userId.toString(), expiration);
     }
 
@@ -40,9 +42,10 @@ public class JwtUtil {
         return createToken(claims, userId.toString(), expiration);
     }
 
-    public String generateRefreshToken(Long userId, String username) {
+    public String generateRefreshToken(Long userId, String username, List<String> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
+        claims.put("roles",roles);
         return createToken(claims, userId.toString(), refreshExpiration);
     }
 
@@ -67,6 +70,9 @@ public class JwtUtil {
 
     public String extractUsername(String token) {
         return extractClaim(token, claims -> claims.get("username", String.class));
+    }
+    public List<String> extractRoles(String token) {
+        return extractClaim(token, claims -> claims.get("roles", List.class));
     }
 
     public Date extractExpiration(String token) {
