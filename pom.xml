@@ -11,8 +11,8 @@
     - groupId: The group (organization) for the project, used in artifact coordinates.
     - artifactId: The unique name for this module.
     - version: The current version of the project.
-    - name: Human-readable project name.
-    - description: Short description of the project.
+    - name: BrainZ.
+    - description: Instagram of Ai's+Twitch+Game.
 
     ***************************
     Properties
@@ -32,7 +32,7 @@
        * Enables sending emails (e.g., for verification, password reset).
        * Used in service classes that handle email notifications.
 
-    3. h2 (scope: test)
+    3. h2 (scope: runtime)
        * In-memory database for testing.
        * Used in integration and unit tests to simulate database operations.
 

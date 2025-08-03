@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.brainz.authentication.service.AuthService;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,10 +37,10 @@ public class AuthServiceImpl implements AuthService {
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 UserValidationResponse user = response.getBody();
-                
+
                 // Generate JWT tokens with user ID as subject
-                String accessToken = jwtUtil.generateToken(user.getUserId(), user.getUsername());
-                String refreshToken = jwtUtil.generateRefreshToken(user.getUserId(), user.getUsername());
+                String accessToken = jwtUtil.generateToken(user.getUserId(), user.getUsername(),user.getRoles());
+                String refreshToken = jwtUtil.generateRefreshToken(user.getUserId(), user.getUsername(),user.getRoles());
 
                 return new AuthResponseDto(
                     accessToken,
@@ -50,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
                     86400000L, // 24 hours
                     user.getUsername(),
                     user.getEmail(),
-                    "Login successful"
+                "Login successful"
                 );
             } else {
                 throw new RuntimeException("Invalid credentials");
@@ -67,11 +66,12 @@ public class AuthServiceImpl implements AuthService {
             // Validate refresh token
             Long userId = jwtUtil.extractUserId(request.getRefreshToken());
             String username = jwtUtil.extractUsername(request.getRefreshToken());
+            List<String> roles = jwtUtil.extractRoles(request.getRefreshToken());
             if (jwtUtil.validateToken(request.getRefreshToken(), userId.toString())) {
-                
+
                 // Generate new tokens
-                String newAccessToken = jwtUtil.generateToken(userId, username);
-                String newRefreshToken = jwtUtil.generateRefreshToken(userId, username);
+                String newAccessToken = jwtUtil.generateToken(userId, username,roles);
+                String newRefreshToken = jwtUtil.generateRefreshToken(userId, username,roles);
 
                 return new AuthResponseDto(
                     newAccessToken,
@@ -114,7 +114,7 @@ public class AuthServiceImpl implements AuthService {
         private Long userId;
         private String username;
         private String email;
-        private String role;
+        private List<String> roles;
 
         // Getters and setters
         public Long getUserId() { return userId; }
@@ -123,7 +123,7 @@ public class AuthServiceImpl implements AuthService {
         public void setUsername(String username) { this.username = username; }
         public String getEmail() { return email; }
         public void setEmail(String email) { this.email = email; }
-        public String getRole() { return role; }
-        public void setRole(String role) { this.role = role; }
+        public List<String> getRoles() { return roles; }
+        public void setRoles(List<String> role) { this.roles = role; }
     }
 } 
