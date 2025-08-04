@@ -9,6 +9,9 @@ import com.brainz.authentication.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -31,10 +34,23 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponseDto login(LoginRequestDto request) {
         try {
             // Call UserService to validate user credentials
+            // Create the body object (e.g., a DTO)
+            LoginRequestDto requestBody = new LoginRequestDto();
+            requestBody.setUsername(request.getUsername());
+            requestBody.setPassword(request.getPassword()); // example
+
+// Set headers
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+// Combine headers and body
+            HttpEntity<LoginRequestDto> requestEntity = new HttpEntity<>(requestBody, headers);
+
+// Make POST call
             ResponseEntity<UserValidationResponse> response = restTemplate.postForEntity(
-                userServiceUrl + "/api/users/validate",
-                request,
-                UserValidationResponse.class
+                    userServiceUrl + "/api/user/validate",
+                    requestEntity,
+                    UserValidationResponse.class
             );
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
