@@ -1,5 +1,6 @@
 package com.brainz.authentication.util;
 
+import com.brainz.authentication.enums.Roles;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.JwtParser;
@@ -31,10 +32,10 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(Long userId, String username, List<String> roles) {
+    public String generateToken(Long userId, String username, List<Roles> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
-        claims.put("roles", roles);
+        claims.put("roles", roles.stream().map(Enum::name).toList()); // store as List<String>
         return createToken(claims, userId.toString(), expiration);
     }
 
@@ -42,10 +43,10 @@ public class JwtUtil {
         return createToken(claims, userId.toString(), expiration);
     }
 
-    public String generateRefreshToken(Long userId, String username, List<String> roles) {
+    public String generateRefreshToken(Long userId, String username, List<Roles> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
-        claims.put("roles",roles);
+        claims.put("roles", roles.stream().map(Enum::name).toList()); // store as List<String>
         return createToken(claims, userId.toString(), refreshExpiration);
     }
 
@@ -71,9 +72,23 @@ public class JwtUtil {
     public String extractUsername(String token) {
         return extractClaim(token, claims -> claims.get("username", String.class));
     }
-    public List<String> extractRoles(String token) {
-        return extractClaim(token, claims -> claims.get("roles", List.class));
+
+    public List<Roles> extractRoles(String token) {
+        Claims claims = extractAllClaims(token);
+
+        Object rolesObject = claims.get("roles");
+
+        if (rolesObject instanceof List<?>) {
+            return ((List<?>) rolesObject).stream()
+                    .filter(String.class::isInstance) // filter only strings
+                    .map(String.class::cast)
+                    .map(Roles::valueOf)
+                    .toList();
+        }
+
+        return List.of(); // fallback if roles not present
     }
+
 
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);

@@ -3,6 +3,8 @@ package com.brainz.authentication.service.impl;
 import com.brainz.authentication.dto.AuthResponseDto;
 import com.brainz.authentication.dto.LoginRequestDto;
 import com.brainz.authentication.dto.RefreshTokenRequestDto;
+import com.brainz.authentication.dto.UserValidationResponse;
+import com.brainz.authentication.enums.Roles;
 import com.brainz.authentication.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,15 +41,15 @@ public class AuthServiceImpl implements AuthService {
                 UserValidationResponse user = response.getBody();
 
                 // Generate JWT tokens with user ID as subject
-                String accessToken = jwtUtil.generateToken(user.getUserId(), user.getUsername(),user.getRoles());
-                String refreshToken = jwtUtil.generateRefreshToken(user.getUserId(), user.getUsername(),user.getRoles());
+                String accessToken = jwtUtil.generateToken(user.getUserId(), user.getUserName(),user.getRoles());
+                String refreshToken = jwtUtil.generateRefreshToken(user.getUserId(), user.getUserName(),user.getRoles());
 
                 return new AuthResponseDto(
                     accessToken,
                     refreshToken,
                     "Bearer",
                     86400000L, // 24 hours
-                    user.getUsername(),
+                    user.getUserName(),
                     user.getEmail(),
                 "Login successful"
                 );
@@ -66,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
             // Validate refresh token
             Long userId = jwtUtil.extractUserId(request.getRefreshToken());
             String username = jwtUtil.extractUsername(request.getRefreshToken());
-            List<String> roles = jwtUtil.extractRoles(request.getRefreshToken());
+            List<Roles> roles = jwtUtil.extractRoles(request.getRefreshToken());
             if (jwtUtil.validateToken(request.getRefreshToken(), userId.toString())) {
 
                 // Generate new tokens
@@ -110,20 +112,5 @@ public class AuthServiceImpl implements AuthService {
     }
 
     // Inner class for UserService response
-    public static class UserValidationResponse {
-        private Long userId;
-        private String username;
-        private String email;
-        private List<String> roles;
 
-        // Getters and setters
-        public Long getUserId() { return userId; }
-        public void setUserId(Long userId) { this.userId = userId; }
-        public String getUsername() { return username; }
-        public void setUsername(String username) { this.username = username; }
-        public String getEmail() { return email; }
-        public void setEmail(String email) { this.email = email; }
-        public List<String> getRoles() { return roles; }
-        public void setRoles(List<String> role) { this.roles = role; }
-    }
 } 
