@@ -36,7 +36,7 @@ public class AuthController {
      */
     @PostMapping("/login")
     @Operation(summary = "Login", description = "Authenticate user and return access & refresh tokens")
-    public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<AuthResponseDto> login( @RequestBody LoginRequestDto loginRequestDto) {
         AuthResponseDto response = authService.login(loginRequestDto);
         return ResponseEntity.ok(response);
     }
@@ -49,7 +49,7 @@ public class AuthController {
      */
     @PostMapping("/refresh")
     @Operation(summary = "Refresh Token", description = "Refresh access token using a valid refresh token")
-    public ResponseEntity<AuthResponseDto> refreshToken(@Valid @RequestBody RefreshTokenRequestDto refreshTokenRequestDto) {
+    public ResponseEntity<AuthResponseDto> refreshToken( @RequestBody RefreshTokenRequestDto refreshTokenRequestDto) {
         AuthResponseDto response = authService.refreshToken(refreshTokenRequestDto);
         return ResponseEntity.ok(response);
     }
