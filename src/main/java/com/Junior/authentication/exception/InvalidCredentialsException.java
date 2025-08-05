@@ -1,4 +1,4 @@
-package com.brainz.authentication.exception;
+package com.Junior.authentication.exception;
 
 public class InvalidCredentialsException extends RuntimeException{
     public InvalidCredentialsException(String message){

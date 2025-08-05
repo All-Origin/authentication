@@ -1,4 +1,4 @@
-package com.brainz.authentication.dto;
+package com.Junior.authentication.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

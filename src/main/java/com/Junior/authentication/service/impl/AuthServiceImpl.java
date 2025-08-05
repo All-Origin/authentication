@@ -1,11 +1,11 @@
-package com.brainz.authentication.service.impl;
+package com.Junior.authentication.service.impl;
 
-import com.brainz.authentication.dto.AuthResponseDto;
-import com.brainz.authentication.dto.LoginRequestDto;
-import com.brainz.authentication.dto.RefreshTokenRequestDto;
-import com.brainz.authentication.dto.UserValidationResponse;
-import com.brainz.authentication.enums.Roles;
-import com.brainz.authentication.util.JwtUtil;
+import com.Junior.authentication.dto.AuthResponseDto;
+import com.Junior.authentication.dto.LoginRequestDto;
+import com.Junior.authentication.dto.RefreshTokenRequestDto;
+import com.Junior.authentication.dto.UserValidationResponse;
+import com.Junior.authentication.enums.Roles;
+import com.Junior.authentication.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import com.brainz.authentication.service.AuthService;
+import com.Junior.authentication.service.AuthService;
 
 import java.util.List;
 

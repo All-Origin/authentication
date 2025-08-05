@@ -1,6 +1,6 @@
-package com.brainz.authentication.util;
+package com.Junior.authentication.util;
 
-import com.brainz.authentication.enums.Roles;
+import com.Junior.authentication.enums.Roles;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.JwtParser;
