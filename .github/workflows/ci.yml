@@ -11,6 +11,8 @@ jobs:
   build-test:
     name: "Build and Test"
     runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
 
     steps:
       - name: "Checkout code"
@@ -37,6 +39,8 @@ jobs:
     name: "Docker Build"
     needs: build-test
     runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
 
     steps:
       - name: "Checkout Logic"
@@ -49,13 +53,3 @@ jobs:
         run: |
           docker build -t my-auth-app:latest .
 
-  deploy:
-    name: "Deploy On Tag"
-    needs: docker
-    if: startsWith(github.ref, 'refs/tags/')
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy to develop server
-        run: |
-          echo "Deploying to dev server..."
