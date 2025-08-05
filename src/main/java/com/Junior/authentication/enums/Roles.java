@@ -1,4 +1,4 @@
-package com.brainz.authentication.enums;
+package com.Junior.authentication.enums;
 
 public enum Roles {
     ROLE_USER,

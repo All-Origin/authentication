@@ -1,8 +1,8 @@
-package com.brainz.authentication.service;
+package com.Junior.authentication.service;
 
-import com.brainz.authentication.dto.AuthResponseDto;
-import com.brainz.authentication.dto.LoginRequestDto;
-import com.brainz.authentication.dto.RefreshTokenRequestDto;
+import com.Junior.authentication.dto.AuthResponseDto;
+import com.Junior.authentication.dto.LoginRequestDto;
+import com.Junior.authentication.dto.RefreshTokenRequestDto;
 
 public interface AuthService {
     
