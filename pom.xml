@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    This is the Maven Project Object Model (POM) file for the Brainz Authentication module.
+    This is the Maven Project Object Model (POM) file for the Junior Authentication module.
     It defines the project structure, dependencies, build plugins, and metadata for building and managing the application.
 
     ********************************
@@ -11,7 +11,7 @@
     - groupId: The group (organization) for the project, used in artifact coordinates.
     - artifactId: The unique name for this module.
     - version: The current version of the project.
-    - name: BrainZ.
+    - name: Junior.
     - description: Instagram of Ai's+Twitch+Game.
 
     ***************************
@@ -125,11 +125,11 @@
         name: Human-readable project name.
         description: Short description of the project.
     -->
-    <groupId>com.brainz</groupId>
+    <groupId>com.junior</groupId>
     <artifactId>authentication</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>authentication</name>
-    <description>Creating advanced auth-system for Brainz</description>
+    <description>Creating advanced auth-system for Junior</description>
 
     <!--
         properties: Project-wide properties.

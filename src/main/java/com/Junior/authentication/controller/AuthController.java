@@ -1,7 +1,6 @@
-package com.brainz.authentication.controller;
+package com.Junior.authentication.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.brainz.authentication.dto.LoginRequestDto;
-import com.brainz.authentication.dto.AuthResponseDto;
-import com.brainz.authentication.dto.RefreshTokenRequestDto;
-import com.brainz.authentication.service.AuthService;
+import com.Junior.authentication.dto.LoginRequestDto;
+import com.Junior.authentication.dto.AuthResponseDto;
+import com.Junior.authentication.dto.RefreshTokenRequestDto;
+import com.Junior.authentication.service.AuthService;
 
 /**
  * AuthController handles authentication-related HTTP requests such as user login and token refresh.

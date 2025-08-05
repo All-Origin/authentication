@@ -1,4 +1,4 @@
-package com.brainz.authentication;
+package com.Junior.authentication;
 
 // Importing necessary Spring Boot classes
 import org.springframework.boot.SpringApplication;

@@ -1,12 +1,11 @@
-package com.brainz.authentication.dto;
+package com.Junior.authentication.dto;
 
-import com.brainz.authentication.enums.Roles;
+import com.Junior.authentication.enums.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.management.relation.Role;
 import java.util.List;
 
 @Data

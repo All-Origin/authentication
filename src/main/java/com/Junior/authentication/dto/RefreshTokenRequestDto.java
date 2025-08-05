@@ -1,4 +1,4 @@
-package com.brainz.authentication.dto;
+package com.Junior.authentication.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
