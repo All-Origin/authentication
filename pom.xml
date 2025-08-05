@@ -125,7 +125,7 @@
         name: Human-readable project name.
         description: Short description of the project.
     -->
-    <groupId>com.Junior</groupId>
+    <groupId>com.junior</groupId>
     <artifactId>authentication</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>authentication</name>
